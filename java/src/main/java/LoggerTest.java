@@ -12,7 +12,11 @@ public class LoggerTest {
     while(true) {
       MDC.clear();
       if(rnd.nextBoolean()) addMDC();
-      logger.info(rndString());
+      if(rnd.nextInt(10) != 0) {
+        logger.info(rndString());
+      } else {
+        logger.error(rndString(), rndException());
+      }
       Thread.sleep(1000);
     }
   }
@@ -22,6 +26,16 @@ public class LoggerTest {
     for(int i=0; i<n; i++) {
       MDC.put("mdc"+i, rndString());
     }
+  }
+
+  public static Exception rndException() {
+    switch(rnd.nextInt(5)) {
+      case 1: return new InterruptedException(rndString());
+      case 2: return new ClassNotFoundException(rndString());
+      case 3: return new NoSuchFieldException(rndString());
+      case 4: return new IllegalArgumentException(rndString(), rndException());
+    }
+    return new Exception(rndString(), rndException());
   }
 
   public static String rndString() {
