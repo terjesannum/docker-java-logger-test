@@ -1,5 +1,5 @@
 NAME = terjesannum/java-logger-test
-VERSION = 3
+VERSION = 4
 
 .PHONY: clean jar build
 

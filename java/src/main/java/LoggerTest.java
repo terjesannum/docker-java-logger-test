@@ -9,6 +9,8 @@ public class LoggerTest {
   final static Random rnd = new Random();
 
   public static void main(String args[]) throws Exception {
+    String s = System.getProperty("logger.sleep");
+    int sleep = s == null ? 1000 : Integer.parseInt(s);
     while(true) {
       MDC.clear();
       if(rnd.nextBoolean()) addMDC();
@@ -17,7 +19,7 @@ public class LoggerTest {
       } else {
         logger.error(rndString(), rndException());
       }
-      Thread.sleep(1000);
+      Thread.sleep(sleep);
     }
   }
 
