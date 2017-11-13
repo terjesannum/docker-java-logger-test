@@ -1,5 +1,5 @@
 NAME = terjesannum/java-logger-test
-VERSION = 5
+VERSION = 6
 PROFILE = logback
 
 .PHONY: clean jar build
