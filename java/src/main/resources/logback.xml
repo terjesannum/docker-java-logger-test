@@ -2,7 +2,7 @@
 
   <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
     <encoder>
-      <pattern>%d{ISO8601} [%thread] %-5level %logger{36} - %mdc %msg%n</pattern>
+      <pattern>%d{ISO8601} [%thread] %-5level %logger{36} - {%mdc} %msg%n</pattern>
     </encoder>
   </appender>
 
@@ -10,15 +10,8 @@
     <encoder class="net.logstash.logback.encoder.LogstashEncoder" />
   </appender>
 
-  <appender name="syslog" class="ch.qos.logback.classic.net.SyslogAppender">
-    <syslogHost>${SYSLOG_HOST:-syslog}</syslogHost>
-    <port>${SYSLOG_PORT:-514}</port>
-    <facility>${SYSLOG_FACILITY:-local1}</facility>
-    <suffixPattern>[%thread] %-5level %logger{36} - %mdc %msg%n</suffixPattern>
-  </appender>
-
   <root level="all">
-    <appender-ref ref="${LOG_APPENDER:-stdout}" />
+    <appender-ref ref="${LOG_APPENDER:-stdout_json}" />
   </root>
 
 </configuration>

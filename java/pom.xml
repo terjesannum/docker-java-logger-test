@@ -5,13 +5,12 @@
   <properties>
     <java.version>1.8</java.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <build.version>1</build.version>
   </properties>
 
   <groupId>test</groupId>
   <artifactId>logger-test</artifactId>
   <packaging>jar</packaging>
-  <version>${build.version}</version>
+  <version>1.0</version>
 
   <profiles>
     <profile>

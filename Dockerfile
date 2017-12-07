@@ -1,12 +1,9 @@
 FROM anapsix/alpine-java:8_server-jre
 LABEL maintainer "terje@offpiste.org"
 
-ENV SYSLOG_HOST syslog
-ENV SYSLOG_PORT 514
-ENV SYSLOG_FACILITY local1
-ENV LOG_APPENDER stdout
+ENV LOG_APPENDER stdout_json
 ENV LOGGER_SLEEP 1000
 
 COPY java/target/logger-test-jar-with-dependencies.jar /
-CMD java -DSYSLOG_HOST=$SYSLOG_HOST -DSYSLOG_PORT=$SYSLOG_PORT -DSYSLOG_FACILITY=$SYSLOG_FACILITY -DLOG_APPENDER=$LOG_APPENDER -Dlogger.sleep=$LOGGER_SLEEP -jar /logger-test-jar-with-dependencies.jar
+CMD java -DLOG_APPENDER=$LOG_APPENDER -Dlogger.sleep=$LOGGER_SLEEP -jar /logger-test-jar-with-dependencies.jar
 
