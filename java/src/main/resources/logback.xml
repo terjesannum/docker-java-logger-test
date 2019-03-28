@@ -13,7 +13,7 @@
   <appender name="file_json" class="ch.qos.logback.core.rolling.RollingFileAppender">
     <file>${LOG_FILE:-/var/log/json.log}</file>
     <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
-      <fileNamePattern>./var/log/json.log.%i</fileNamePattern>
+      <fileNamePattern>${LOG_FILE:-/var/log/json.log}.%i</fileNamePattern>
       <minIndex>1</minIndex>
       <maxIndex>1</maxIndex>
     </rollingPolicy>
