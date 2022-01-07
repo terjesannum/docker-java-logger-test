@@ -1,0 +1,41 @@
+name: Build and push docker images
+
+env:
+  image_name: ghcr.io/${{ github.repository_owner }}/java-logger
+
+on:
+  push:
+    tags:
+      - '[0-9]+'
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Login GHCR
+      uses: docker/login-action@v1
+      with:
+        registry: https://ghcr.io
+        username: ${{ github.repository_owner }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Get docker image version
+      id: get_version
+      run: echo ::set-output name=version::${GITHUB_REF#refs/tags/}
+  docker:
+    needs: setup
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        profile: ['logback', 'log4j2']
+    steps:
+    - name: Build and push
+      id: docker_build
+      uses: docker/build-push-action@v2
+      with:
+        push: true
+        tags: ${{ env.image_name }}:${{ steps.get_version.outputs.version }}
+        build-args: |
+            PROFILE=${{ matrix.profile }}
