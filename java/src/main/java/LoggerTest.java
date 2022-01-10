@@ -7,10 +7,16 @@ public class LoggerTest {
 
   final static Logger logger = LoggerFactory.getLogger(LoggerTest.class);
   final static Random rnd = new Random();
+  static int messageMinLength = 10;
+  static int messageMaxLength = 40;
 
   public static void main(String args[]) throws Exception {
     String s = System.getProperty("logger.sleep");
     int sleep = s == null ? 1000 : Integer.parseInt(s);
+    s = System.getProperty("logger.message.minLength");
+    if(s != null) messageMinLength = Integer.parseInt(s);
+    s = System.getProperty("logger.message.maxLength");
+    if(s != null) messageMaxLength = Integer.parseInt(s);
     while(true) {
       MDC.clear();
       if(rnd.nextBoolean()) addMDC();
@@ -41,7 +47,7 @@ public class LoggerTest {
   }
 
   public static String rndString() {
-    int length = 10+rnd.nextInt(30);
+    int length = messageMinLength+rnd.nextInt(messageMaxLength - messageMinLength);
     StringBuilder word = new StringBuilder(length);
     for(int i=0; i<length; i++) {
       word.append((char)('a' + rnd.nextInt(26)));
