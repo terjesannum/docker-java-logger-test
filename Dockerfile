@@ -1,4 +1,4 @@
-FROM maven:3.8.4-jdk-8 as builder
+FROM maven:3.9.9-eclipse-temurin-23 as builder
 
 ARG PROFILE
 ENV PROFILE=${PROFILE:-logback}
@@ -8,12 +8,9 @@ WORKDIR /java
 RUN mvn -P $PROFILE package
 
 
-FROM openjdk:8-jre-slim
+FROM eclipse-temurin:24
 LABEL maintainer "terje@offpiste.org"
 
-ENV LOG_APPENDER stdout_json
-ENV LOG_MAX_SIZE 5MB
-ENV LOG_FILE /var/log/json.log
 ENV LOGGER_SLEEP 1000
 ENV LOGGER_MESSAGE_MIN_LENGTH 10
 ENV LOGGER_MESSAGE_MAX_LENGTH 40
