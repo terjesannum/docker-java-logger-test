@@ -34,9 +34,9 @@
         <!-- for testing, not used by default config -->
         <dependency>
           <groupId>com.google.cloud</groupId>
-          <artifactId>google-cloud-logging</artifactId>
-          <version>3.21.3</version>
-        </dependency>        
+          <artifactId>google-cloud-logging-logback</artifactId>
+          <version>0.132.5-alpha</version>
+        </dependency>
       </dependencies>
     </profile>
     <profile>
