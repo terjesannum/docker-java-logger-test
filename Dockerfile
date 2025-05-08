@@ -16,6 +16,7 @@ ENV LOGGER_MESSAGE_MIN_LENGTH 10
 ENV LOGGER_MESSAGE_MAX_LENGTH 40
 
 ENV LOGBACK_CONFIG_FILE=logback.xml
+ENV LOG4J2_CONFIG_FILE=log4j2.xml
 
 COPY --from=builder /java/target/logger-test.jar /
-CMD java -Dlogger.sleep=$LOGGER_SLEEP -Dlogger.message.minLength=$LOGGER_MESSAGE_MIN_LENGTH -Dlogger.message.maxLength=$LOGGER_MESSAGE_MAX_LENGTH -Dlogback.configurationFile=$LOGBACK_CONFIG_FILE -jar /logger-test.jar
+CMD java -Dlogger.sleep=$LOGGER_SLEEP -Dlogger.message.minLength=$LOGGER_MESSAGE_MIN_LENGTH -Dlogger.message.maxLength=$LOGGER_MESSAGE_MAX_LENGTH -Dlogback.configurationFile=$LOGBACK_CONFIG_FILE -Dlog4j.configurationFile=$LOG4J2_CONFIG_FILE -jar /logger-test.jar
