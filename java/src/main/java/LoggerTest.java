@@ -1,6 +1,8 @@
 import java.util.Random;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.Marker;
+import org.slf4j.MarkerFactory;
 import org.slf4j.MDC;
 
 public class LoggerTest {
@@ -8,20 +10,27 @@ public class LoggerTest {
   final static Logger logger = LoggerFactory.getLogger(LoggerTest.class);
   final static Random rnd = new Random();
   static int messageMinLength = 10;
-  static int messageMaxLength = 40;
+  static int messageMaxLength = 20;
 
   public static void main(String args[]) throws Exception {
     String s = System.getProperty("logger.sleep");
     int sleep = s == null ? 1000 : Integer.parseInt(s);
+    Marker marker = null;
     s = System.getProperty("logger.message.minLength");
     if(s != null) messageMinLength = Integer.parseInt(s);
     s = System.getProperty("logger.message.maxLength");
     if(s != null) messageMaxLength = Integer.parseInt(s);
+    s = System.getProperty("logger.marker");
+    if(s != null) marker = MarkerFactory.getMarker(s)
     while(true) {
       MDC.clear();
       if(rnd.nextBoolean()) addMDC();
       if(rnd.nextInt(10) != 0) {
-        logger.info(rndString());
+          if(marker == null || rnd.nextBoolean()) {
+              logger.info(rndString());
+          } else {
+              logger.info(marker, "MARKED "+rndString());
+          }
       } else {
         logger.error(rndString(), rndException());
       }
