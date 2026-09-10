@@ -21,7 +21,7 @@ public class LoggerTest {
     s = System.getProperty("logger.message.maxLength");
     if(s != null) messageMaxLength = Integer.parseInt(s);
     s = System.getProperty("logger.marker");
-    if(s != null) marker = MarkerFactory.getMarker(s)
+    if(s != null) marker = MarkerFactory.getMarker(s);
     while(true) {
       MDC.clear();
       if(rnd.nextBoolean()) addMDC();
