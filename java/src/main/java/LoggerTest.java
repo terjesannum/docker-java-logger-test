@@ -26,7 +26,7 @@ public class LoggerTest {
       MDC.clear();
       if(rnd.nextBoolean()) addMDC();
       if(rnd.nextInt(10) != 0) {
-          if(marker == null || rnd.nextBoolean()) {
+          if(marker == null || "".equals(marker) || rnd.nextBoolean()) {
               logger.info(rndString());
           } else {
               logger.info(marker, "MARKED "+rndString());
